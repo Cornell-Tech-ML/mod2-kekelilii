@@ -360,9 +360,11 @@ class Tensor:
     def sum(self, dim: Optional[int] = None) -> Tensor:
         """Compute the sum along the specified dimension."""
         if dim is None:
-            return Sum.apply(self)
+            # return Sum.apply(self)
+            return Sum.apply(self.contiguous().view(self.size), self._ensure_tensor(0))
         else:
-            return Sum.apply(self, Tensor.make([dim], (1,), backend=self.backend))
+            return Sum.apply(self, self._ensure_tensor(dim))
+            # return Sum.apply(self, Tensor.make([dim], (1,), backend=self.backend))
 
     def mean(self, dim: Optional[int] = None) -> Tensor:
         """Compute the mean along the specified dimension."""

@@ -221,24 +221,24 @@ class Exp(Function):
 
 class Sum(Function):
     @staticmethod
-    def forward(ctx: Context, a: Tensor, dim: Optional[Tensor] = None) -> Tensor:
+    def forward(ctx: Context, a: Tensor, dim: Tensor) -> Tensor:
         """Computes the sum of the elements in the input tensor along a specified dimension."""
         ctx.save_for_backward(a.shape, dim)
-        if dim is not None:
-            return a.f.add_reduce(a, int(dim.item()))
-        else:
-            return a.f.add_reduce(a.contiguous().view(int(operators.prod(a.shape))), 0)
+        # if dim is not None:
+        return a.f.add_reduce(a, int(dim.item()))
+        # else:
+        # return a.f.add_reduce(a.contiguous().view(int(operators.prod(a.shape))), 0)
 
     @staticmethod
-    def backward(ctx: Context, grad_output: Tensor) -> Tuple[Tensor, float]:  # type: ignore
+    def backward(ctx: Context, grad_output: Tensor) -> Tuple[Tensor, float]:
         """Computes the gradient for the sum operation."""
         a_shape, dim = ctx.saved_values
-        if dim is None:
-            out = grad_output.zeros(a_shape)
-            out._tensor._storage[:] = grad_output[0]
-            return out
-        else:
-            return (grad_output, 0.0)
+        # if dim is None:
+        #     out = grad_output.zeros(a_shape)
+        #     out._tensor._storage[:] = grad_output[0]
+        #     return (out, 0.0)
+        # else:
+        return (grad_output, 0.0)
 
 
 class LT(Function):

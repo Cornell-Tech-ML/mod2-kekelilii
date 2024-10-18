@@ -156,7 +156,6 @@ class Scalar:
             d_output = 1.0
         backpropagate(self, d_output)
 
-
     # TODO: Implement for Task 1.2.
     def __lt__(self, b: ScalarLike) -> Scalar:
         return LT.apply(self, b)
