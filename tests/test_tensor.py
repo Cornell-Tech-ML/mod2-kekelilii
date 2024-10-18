@@ -1,8 +1,8 @@
 from typing import Callable, Iterable, List, Tuple
 
-import pytest
-from hypothesis import given
-from hypothesis.strategies import DataObject, data, lists, permutations
+import pytest  # type: ignore
+from hypothesis import given  # type: ignore
+from hypothesis.strategies import DataObject, data, lists, permutations  # type: ignore
 
 from minitorch import MathTestVariable, Tensor, grad_check, tensor
 
